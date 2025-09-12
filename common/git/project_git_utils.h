@@ -63,6 +63,31 @@ public:
     static wxString GetCurrentHash( const wxString& aProjectFile, bool aShort );
 
     /**
+     * Return the latest tag name for the repository containing aProjectFile.
+     *
+     * @param aProjectFile Absolute path to any file within the repository.
+     * @return wxString containing the latest tag name or empty string if no tags found.
+     */
+    static wxString GetLatestTag( const wxString& aProjectFile );
+
+    /**
+     * Return the number of commits since the latest tag for the repository containing aProjectFile.
+     *
+     * @param aProjectFile Absolute path to any file within the repository.
+     * @return Number of commits since latest tag, or 0 if no tags found or on error.
+     */
+    static int GetCommitsSinceLatestTag( const wxString& aProjectFile );
+
+    /**
+     * Return the Git revision string (latest tag + commits since tag) for the repository
+     * containing aProjectFile.
+     *
+     * @param aProjectFile Absolute path to any file within the repository.
+     * @return wxString containing the revision (e.g., "v1.2.3-4") or empty if unavailable.
+     */
+    static wxString GetGitRevision( const wxString& aProjectFile );
+
+    /**
      * Remove version control from a directory by freeing the repository and
      * optionally removing the .git directory.
      *

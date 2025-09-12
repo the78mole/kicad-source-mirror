@@ -98,6 +98,22 @@ bool PROJECT::TextVarResolver( wxString* aToken ) const
         *aToken = KIGIT::PROJECT_GIT_UTILS::GetCurrentHash( GetProjectFullName(), true );
         return true;
     }
+    else if( aToken->IsSameAs( wxT( "GIT_LATEST_TAG" ) ) )
+    {
+        *aToken = KIGIT::PROJECT_GIT_UTILS::GetLatestTag( GetProjectFullName() );
+        return true;
+    }
+    else if( aToken->IsSameAs( wxT( "GIT_COMMITS_SINCE_LATEST_TAG" ) ) )
+    {
+        int commits = KIGIT::PROJECT_GIT_UTILS::GetCommitsSinceLatestTag( GetProjectFullName() );
+        *aToken = wxString::Format( wxT( "%d" ), commits );
+        return true;
+    }
+    else if( aToken->IsSameAs( wxT( "GIT_REVISION" ) ) )
+    {
+        *aToken = KIGIT::PROJECT_GIT_UTILS::GetGitRevision( GetProjectFullName() );
+        return true;
+    }
     else if( GetTextVars().count( *aToken ) > 0 )
     {
         *aToken = GetTextVars().at( *aToken );
